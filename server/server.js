@@ -21,11 +21,11 @@ require(__dirname+"/config/mongoose.js");
 require(__dirname+"/config/routes.js")(app);
 
 // sockets
-io = require("socket.io").listen(app);
-io.sockets.on("connection", function(data){
+// io = require("socket.io").listen(app);
+// io.sockets.on("connection", function(data){
 	// on draw event: 
 	// socket.on("drawing", function(socket){
 	// socket.broadcast.emit("drawing", {drawing coordinates})
 	// })
 
-})
+// })
