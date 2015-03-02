@@ -4,7 +4,8 @@ $(document).ready(function($){
     this.canvas.height = 400;
     this.canvas.width = 600;
 
-    $('#draw-box').append(this.canvas).children('canvas').attr('draggable', 'true').css('width', '100%');
+    $('#draw-box').append(this.canvas).children('canvas').css('width', '100%');
+    //.attr('draggable', 'true')
 
     this.ctx = this.canvas.getContext('2d');
 
@@ -27,29 +28,21 @@ $(document).ready(function($){
   }
 
   var drawingApp = new App();
+
+  var mousedown = false;
   
-  $("#test").bind('drag',function( event ){
-    console.log('dragging', $(this).css('top'), event.originalEvent.offsetY);
-    
-    $( this ).css({
-      top: event.originalEvent.offsetY,
-      left: event.originalEvent.offsetX
-      });
-
-  });
-
-  $("#draw-box canvas").bind('drag dragstart dragend', function(e){
-    var offset, type, x, y;
-    type = e.type;
-    offset = $(this).offset();
-    if(e.originalEvent.clientX == 0 || e.originalEvent.clientY == 0){ //fixes lines-going-to-corner bug
-      type = 'dragend';
+  $("#draw-box canvas").mousedown(function(e){
+    mousedown = true;
+    drawingApp.draw(e.offsetX, e.offsetY, "dragstart");
+  }).mousemove(function(e){
+    if(mousedown){
+      console.log(e);
+      drawingApp.draw(e.offsetX, e.offsetY, "drag");
     }
-    e.offsetX = e.originalEvent.clientX - offset.left;
-    e.offsetY = e.originalEvent.clientY - offset.top;
-    x = e.offsetX;
-    y = e.offsetY;
-    drawingApp.draw(x, y, type);
+  });
+  $(document).mouseup(function(e){
+    mousedown = false;
+    drawingApp.draw(e.offsetX, e.offsetY, "dragend");
   });
 
 });
