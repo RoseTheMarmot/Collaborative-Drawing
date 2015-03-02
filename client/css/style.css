@@ -29,3 +29,22 @@
 form label {
 	margin-top: 5px;
 }
+
+#draw-box, #chat-box{
+	min-height: 500px;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #000;
+}
+
+#chat-box input, #chat-box button{
+	margin-top: 10px;
+}
+
+#messages{
+	height: 420px;
+	width: 100%;
+	padding: 5px;
+	border: 1px solid #000;
+	overflow: scroll;
+}
