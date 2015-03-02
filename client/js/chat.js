@@ -3,8 +3,10 @@ $(document).ready(function(){
   var userName = prompt("What's your name?");
   socket.emit("new_user", {name: userName});
   socket.on("user_accepted", function(data){
-    $("#messages").append(data.name+" entered the chatroom!<br>")
-    // display the past chat msgs
+    for(var i=0; i<data.chats.length; i++){
+      $("#messages").prepend(data.chats[i]+"</br>");
+    };
+    $("#messages").prepend(data.name+" entered the chatroom!</br>")
   });
   $("#send_btn").click(function(e){
     e.preventDefault();
@@ -18,9 +20,9 @@ $(document).ready(function(){
     };
   });
   socket.on("msg_received", function(data){
-    $("#messages").prepend(data.message+"<br>");
+    $("#messages").prepend(data.message+"</br>");
   });
   socket.on("user_disconnected", function(data){
-    $("#messages").prepend(data.name+" left the chatroom.<br>");
+    $("#messages").prepend(data.name+" left the chatroom.</br>");
   }); 
 });
