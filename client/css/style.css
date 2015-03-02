@@ -1,5 +1,5 @@
 *{
-	/*outline: 1px dotted #0ff;*/
+	outline: 1px dotted #0ff;
 }
 .container{
 	margin: 20px auto;
@@ -10,22 +10,14 @@
 .row .row {
 	margin: 10px 0px;
 }
-.col-fixed-6{
-	width: 100%;
-}
-@media all and (min-width: 480px){
-	.col-fixed-6{
-		width: 480px;
-	}
-}
-.col-fixed-3{
-	width: 100%;
-}
-@media all and (min-width: 240px){
-	.col-fixed-3{
-		width: 240px;
-	}
-}
 form label {
 	margin-top: 5px;
+}
+#test {
+	position: absolute;
+	background-color: blue;
+	top: 10px;
+	left: 10px;
+	width: 30px;
+	height: 30px;
 }
