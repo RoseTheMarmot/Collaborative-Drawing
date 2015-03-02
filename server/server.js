@@ -22,19 +22,16 @@ require(__dirname+"/config/routes.js")(app);
 
 // sockets
 var io = require("socket.io").listen(server);
-// io.sockets.on("connection", function(data){
-	// on draw event: 
-	// socket.on("drawing", function(socket){
-	// socket.broadcast.emit("drawing", {drawing coordinates})
-	// })
 
-// })
-
-//  chat feature
 var users = [];
 var chat_msgs = [];
 
 io.sockets.on("connection", function(socket){
+	// socket.on("draw", function(data){
+	// 	socket.broadcast.emit **line info
+	// })
+
+	// chat feature
 	socket.on("new_user", function(data){
 		users[socket.id] = data.name;
 		io.emit("user_accepted", {name: data.name, chats: chat_msgs});
