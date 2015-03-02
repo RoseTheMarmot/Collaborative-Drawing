@@ -13,11 +13,3 @@
 form label {
 	margin-top: 5px;
 }
-#test {
-	position: absolute;
-	background-color: blue;
-	top: 10px;
-	left: 10px;
-	width: 30px;
-	height: 30px;
-}
