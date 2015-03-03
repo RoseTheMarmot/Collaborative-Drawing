@@ -8,8 +8,8 @@ X lightbox instead of prompt
 
 Rose:
 X add erasor feature
-- get the previously selected color to show up for new users
-- get the previously selected brush to show up for new users
+X get the previously selected color to show up for new users
+X get the previously selected brush to show up for new users
 - get old drawings to show up for new users (drawing log)
 
 later:
