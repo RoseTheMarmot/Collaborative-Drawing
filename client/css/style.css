@@ -1,23 +1,24 @@
 *{
 	/*outline: 1px dotted #0ff;*/
 }
+canvas {
+	cursor: crosshair;
+}
 .container{
 	margin: 20px auto;
 }
 .row {
 	margin: 20px 0px;
 }
-.row .row {
-	margin: 10px 0px;
-}
-form label {
-	margin-top: 5px;
-}
 #draw-box, #chat-box{
 	min-height: 500px;
 	width: 100%;
+	/*padding: 10px;
+	border: 1px solid #000;*/
+}
+#chat-box{
 	padding: 10px;
-	border: 1px solid #000;
+	overflow: hidden;
 }
 #chat-box input, #chat-box button{
 	margin-top: 10px;
@@ -26,5 +27,18 @@ form label {
 	height: 460px;
 	width: 100%;
 	padding: 5px;
-	border: 1px solid #000;
+	border: 1px solid #aaa;
 	overflow: scroll;
+}
+#color-picker div{
+	width:20px;
+	height:20px;
+	display:inline-block;
+	margin: 2px;
+	cursor: pointer;
+}
+#color-picker div.selected{
+	outline: 2px solid #fff;
+	box-shadow: 1px 1px 5px #333;
+}
+

@@ -4,14 +4,14 @@ $(document).ready(function($){
     //initializing the canvas
     this.canvas = document.createElement('canvas');
     this.canvas.height = 500;
-    this.canvas.width = 600;
+    this.canvas.width = parseInt($('#draw-box').css('width')); //600
 
     $('#draw-box').append(this.canvas);
 
     //initializing the drawing brush
     this.ctx = this.canvas.getContext('2d');
     this.ctx.fillStyle = "solid";
-    this.ctx.strokeStyle = "#baba55";
+    this.ctx.strokeStyle = "#ff0000";
     this.ctx.lineWidth = 5;
     this.ctx.lineCap = "round";
 
@@ -30,10 +30,10 @@ $(document).ready(function($){
   }
 
   var ColorPicker = function(container_selector){
-    var colors = ['FF0000', 'FF00BB', 'CC00FF', '0080FF', '00FFFB', '00FF59', 'FFFF00', 'FF9100', 'FF4000'];
+    var colors = ['FF00BB', 'CC00FF', '0080FF', '00FFFB', '00FF59', 'FFFF00', 'FF9100', 'FF4000'];
     var boxes = colors.length;
     function box(color){
-      return "<div style='width:20px;height:20px;display:inline-block;background-color:#"+color+";'></div>";
+      return $("<div style='background-color:#"+color+";'></div>");
     }
     /*
     function box(r, g, b){
@@ -46,7 +46,11 @@ $(document).ready(function($){
       return Math.round(Math.sin(x*(2*Math.PI/boxes)-(Math.PI/2))*(255/2)+(255/2));
     }*/
     for(var i = 0; i < boxes; i++){
-      $(container_selector).append(box(colors[i]));
+      if(i+1 === boxes){
+        $(container_selector).append(box(colors[i]).addClass('selected'));
+      }else{
+        $(container_selector).append(box(colors[i]));
+      }
     }
   }
 
@@ -56,9 +60,10 @@ $(document).ready(function($){
   var mousedown = false; //true false if the mouse is down while being moved
   
   $('#color-picker').on('click', 'div', function(){
+    $(this).addClass('selected').siblings().removeClass('selected');
     drawingApp.ctx.strokeStyle = $(this).css('background-color');
   });
-  
+
   $("#draw-box canvas").mousedown(function(e){
     mousedown = true;
     drawingApp.draw(e.offsetX, e.offsetY, "dragstart");
@@ -69,7 +74,7 @@ $(document).ready(function($){
       socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "drag"});
     }
   });
-  
+
   $(document).mouseup(function(e){
     mousedown = false;
     drawingApp.draw(e.offsetX, e.offsetY, "dragend");
