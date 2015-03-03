@@ -39,12 +39,14 @@ io.sockets.on("connection", function(socket){
 		chat_msgs.push(newMsg);
 	});
 	// issue: on disconnect, name not showing!
-	socket.on("disconnect", function(socket){
+	socket.on("disconnect", function(){
 		io.emit("user_disconnected", {name: users[socket.id]});
 		if(users[socket.id]){
 			delete users[socket.id];
 		}
 	});
+
+	// multi-user drawing
 	socket.on("drawing", function(data){
 		socket.broadcast.emit("draw", {x: data.x, y: data.y, type: data.type})
 	});
