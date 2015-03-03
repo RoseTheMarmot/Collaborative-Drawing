@@ -8,7 +8,15 @@ module.exports = function(app){
 	var bodyParser = require('body-parser');
 	app.use(bodyParser.urlencoded());
 
-	//link controllers here
+	//controllers
+	var Drawings = require(__dirname+'/../controllers/drawings.js');
 
-	//routes here
+	//routes
+	app.get('/drawings', function(request, response){
+		Drawings.index(request, response);
+	});
+
+	app.post('/drawings', function(request, response){
+		Drawings.update(request, response);
+	});
 }
