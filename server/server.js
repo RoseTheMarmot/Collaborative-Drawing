@@ -7,11 +7,7 @@ var app 	= 	express();
 
 //port
 var port = 8000;
-<<<<<<< HEAD
 var server = app.listen(port, function(){
-=======
-server = app.listen(port, function(){
->>>>>>> Nikki
 	console.log("\n****************************\n*  listening on port "+port+"  *\n****************************\n");
 });
 
@@ -25,15 +21,6 @@ require(__dirname+"/config/mongoose.js");
 require(__dirname+"/config/routes.js")(app);
 
 // sockets
-<<<<<<< HEAD
-io = require("socket.io").listen(server);
-io.sockets.on("connection", function(data){
-	// on draw event: 
-	// socket.on("drawing", function(socket){
-	// socket.broadcast.emit("drawing", {drawing coordinates});
-	// })
-
-=======
 var io = require("socket.io").listen(server);
 
 var users = [];
@@ -59,7 +46,6 @@ io.sockets.on("connection", function(socket){
 		io.emit("user_disconnected", {name: users[socket.id]});
 		if(users[socket.id]){
 			delete users[socket.id];
-		};
+		}
 	});
->>>>>>> Nikki
 });
