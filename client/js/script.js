@@ -78,14 +78,23 @@ $(document).ready(function($){
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragend"});
   });
 
-
+  // multi-user drawing
   socket.on("draw", function(data){
     drawingApp.draw(data.x, data.y, data.type);
   });
 
+  // change colors
   socket.on("color_changed", function(data){
     drawingApp.ctx.strokeStyle = data.color;
   });
+
+  // clear canvas
+  $("#clear_btn").on("click", function(){
+    socket.emit("clear_canvas");
+  })
+  socket.on("cleared", function(){
+    drawingApp.ctx.clearRect(0, 0, canvas.width, canvas.height);
+  })
 });
 
 

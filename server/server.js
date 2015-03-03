@@ -55,4 +55,9 @@ io.sockets.on("connection", function(socket){
 	socket.on("color_change", function(data){
 		socket.broadcast.emit("color_changed", {color: data.color});
 	});
+
+	// clear canvas
+	socket.on("clear_canvas", function(){
+		socket.broadcast.emit("cleared");
+	})
 });
