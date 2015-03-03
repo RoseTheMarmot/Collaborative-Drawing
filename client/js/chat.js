@@ -24,9 +24,7 @@ $(document).ready(function(){
     socket.emit("new_user", {name: userName});
   });
   $("#no-name").click(function(){
-    if(userName == ""){
-      userName = "Anonymous"+randNum;
-    };
+    userName = "Anonymous"+randNum;
     socket.emit("new_user", {name: userName});
   });
   $(document).keydown(function(e){
