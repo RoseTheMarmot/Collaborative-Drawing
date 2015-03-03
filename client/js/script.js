@@ -35,16 +35,6 @@ $(document).ready(function($){
     function box(color){
       return $("<div style='background-color:#"+color+";'></div>");
     }
-    /*
-    function box(r, g, b){
-      return "<div style='width:20px;height:20px;display:inline-block;background-color:rgb("+r+", "+g+", "+b+");'></div>";
-    }
-    function r(x){
-      return Math.round(Math.sin(x*(2*Math.PI/boxes)+(Math.PI/2))*(255/2)+(255/2));
-    }
-    function g(x){
-      return Math.round(Math.sin(x*(2*Math.PI/boxes)-(Math.PI/2))*(255/2)+(255/2));
-    }*/
     for(var i = 0; i < boxes; i++){
       if(i+1 === boxes){
         $(container_selector).append(box(colors[i]).addClass('selected'));
@@ -54,9 +44,20 @@ $(document).ready(function($){
     }
   }
 
+  var BrushPicker = function(container_selector){
+    var sizes = [1, 3, 5, 7];
+    function box(size){
+      return $("<div style='width:"+size+"px;height:"+size+"px;border-radius:"+size+"px;'></div>");
+    }
+    for(var i = 0; i < sizes.length; i++){
+      $(container_selector).append(box(sizes[i]));
+    }
+  }
+
   var socket = io.connect();
   var drawingApp = new App();
   var picker = new ColorPicker('#color-picker');
+  var brushes = new BrushPicker('#brush-picker');
   var mousedown = false; //true false if the mouse is down while being moved
   
   $('#color-picker').on('click', 'div', function(){
