@@ -67,6 +67,6 @@ io.sockets.on("connection", function(socket){
 
 	// clear canvas
 	socket.on("clear_canvas", function(){
-		socket.broadcast.emit("cleared");
+		io.emit("cleared");
 	})
 });

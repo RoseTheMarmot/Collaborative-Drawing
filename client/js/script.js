@@ -44,7 +44,7 @@ $(document).ready(function($){
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragend"});
   });
   // clear canvas
-  $("#clear_btn").on("click", function(){
+  $("#clear_btn").click(function(){
     socket.emit("clear_canvas");
   });
 
@@ -66,6 +66,6 @@ $(document).ready(function($){
   });
   //clear drawing area
   socket.on("cleared", function(){
-    drawingApp.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawingApp.ctx.clearRect(0, 0, drawingApp.canvas.width, drawingApp.canvas.height);
   });
 });

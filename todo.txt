@@ -1,5 +1,5 @@
 Nikki
-- implement reset on canvas
+X implement reset on canvas
 X fix "undifined has left the chatroom"
 X force name for chatroom or impement login or have anonomus chatting (like google docs)
 X get old chats to show up for new users (chat log)
