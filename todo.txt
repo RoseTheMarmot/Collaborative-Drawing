@@ -1,0 +1,10 @@
+- fix "undifined has left the chatroom"
+- get old drawings to show up for new users (drawing log)
+- get old chats to show up for new users (chat log)
+- get the previously selected color to show up for new users
+- implement reset on canvas
+- implement automattic deletion of really old chats
+- add erasor feature
+- add brush size feature
+- add more "dynamic" color selection
+- force name for chatroom or impement login or have anonomus chatting (like google docs)

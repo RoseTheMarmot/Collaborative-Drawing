@@ -28,19 +28,19 @@ canvas {
 	border: 1px solid #aaa;
 	overflow: scroll;
 }
-#color-picker div{
-	width:20px;
-	height:20px;
-	display:inline-block;
-	margin: 2px;
-	cursor: pointer;
+#color-picker {
+	width: 50%;
+	display: inline-block;
 }
-#color-picker div.selected{
-	outline: 2px solid #fff;
-	box-shadow: 1px 1px 5px #333;
-}
-
-#color-picker button{
-	margin-top: -3px;
-}
+	#color-picker div{
+		width:20px;
+		height:20px;
+		display:inline-block;
+		margin: 2px;
+		cursor: pointer;
+	}
+	#color-picker div.selected{
+		outline: 2px solid #fff;
+		box-shadow: 1px 1px 5px #333;
+	}
 
