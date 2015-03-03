@@ -56,7 +56,9 @@ $(document).ready(function($){
   var mousedown = false; //true false if the mouse is down while being moved
   
   $('#color-picker').on('click', 'div', function(){
-    drawingApp.ctx.strokeStyle = $(this).css('background-color');
+    var newColor = $(this).css("background-color");
+    drawingApp.ctx.strokeStyle = newColor;
+    socket.emit("color_change", {color: newColor});
   });
   
   $("#draw-box canvas").mousedown(function(e){
@@ -76,10 +78,14 @@ $(document).ready(function($){
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragend"});
   });
 
+
   socket.on("draw", function(data){
     drawingApp.draw(data.x, data.y, data.type);
   });
 
+  socket.on("color_changed", function(data){
+    drawingApp.ctx.strokeStyle = data.color;
+  });
 });
 
 
