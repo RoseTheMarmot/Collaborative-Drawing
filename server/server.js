@@ -21,11 +21,33 @@ require(__dirname+"/config/mongoose.js");
 require(__dirname+"/config/routes.js")(app);
 
 // sockets
-io = require("socket.io").listen(server);
-io.sockets.on("connection", function(data){
-	// on draw event: 
-	// socket.on("drawing", function(socket){
-	// socket.broadcast.emit("drawing", {drawing coordinates});
-	// })
+var io = require("socket.io").listen(server);
 
+var users = [];
+var chat_msgs = [];
+
+io.sockets.on("connection", function(socket){
+
+	// chat feature
+	socket.on("new_user", function(data){
+		users[socket.id] = data.name;
+		io.emit("user_accepted", {name: data.name, chats: chat_msgs});
+	});
+	socket.on("msg_send", function(data){
+		newMsg = users[socket.id]+": "+data.message;
+		io.emit("msg_received", {message: newMsg});
+		chat_msgs.push(newMsg);
+	});
+	// issue: on disconnect, name not showing!
+	socket.on("disconnect", function(){
+		io.emit("user_disconnected", {name: users[socket.id]});
+		if(users[socket.id]){
+			delete users[socket.id];
+		}
+	});
+
+	// multi-user drawing
+	socket.on("drawing", function(data){
+		socket.broadcast.emit("draw", {x: data.x, y: data.y, type: data.type})
+	});
 });

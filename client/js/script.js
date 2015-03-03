@@ -3,11 +3,10 @@ $(document).ready(function($){
     
     //initializing the canvas
     this.canvas = document.createElement('canvas');
-    this.canvas.height = 400;
+    this.canvas.height = 500;
     this.canvas.width = 600;
 
-    //adding canvas to page
-    $('#draw-box').append(this.canvas).children('canvas').css('width', '100%');
+    $('#draw-box').append(this.canvas);
 
     //initializing the drawing brush
     this.ctx = this.canvas.getContext('2d');
@@ -51,6 +50,7 @@ $(document).ready(function($){
     }
   }
 
+  var socket = io.connect();
   var drawingApp = new App();
   var picker = new ColorPicker('#color-picker');
   var mousedown = false; //true false if the mouse is down while being moved
@@ -62,14 +62,22 @@ $(document).ready(function($){
   $("#draw-box canvas").mousedown(function(e){
     mousedown = true;
     drawingApp.draw(e.offsetX, e.offsetY, "dragstart");
+    socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragstart"});
   }).mousemove(function(e){
     if(mousedown){ 
       drawingApp.draw(e.offsetX, e.offsetY, "drag");
+      socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "drag"});
     }
   });
+  
   $(document).mouseup(function(e){
     mousedown = false;
     drawingApp.draw(e.offsetX, e.offsetY, "dragend");
+    socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragend"});
+  });
+
+  socket.on("draw", function(data){
+    drawingApp.draw(data.x, data.y, data.type);
   });
 
 });
