@@ -62,4 +62,9 @@ canvas {
 		display: inline-block;
 		background-color: #000;
 	}
+#erase-button{
+	display: inline-block;
+	vertical-align:top;
+	padding: 2px;
+}
 

@@ -4,9 +4,9 @@ Niki
 - get old chats to show up for new users (chat log)
 
 Rose:
-- add brush size feature
 - add erasor feature
 - get the previously selected color to show up for new users
+- get the previously selected brush to show up for new users
 - get old drawings to show up for new users (drawing log)
 
 later:

@@ -4,19 +4,27 @@ $(document).ready(function($){
    * Initialization
    */
   var socket = io.connect();
-  var drawingApp = new App();
+  var drawingApp = new App('#draw-box');
   var colors = new ColorPicker('#color-picker', drawingApp);
   var brushes = new BrushPicker('#brush-picker', drawingApp);
   var mousedown = false; //true false if the mouse is down while being moved
-  
+
+
   /*
    * Document listeners, socket emits
    */
   $('#color-picker').on('click', 'div', function(){
+    $('#erase-button').removeClass('selected');
     socket.emit("color_change", {color: colors.changeColor($(this))});
   });
   $('#brush-picker').on('click', '> div', function(){
     socket.emit("brush_change", {brush: brushes.changeBrush($(this))});
+  });
+  $('#erase-button').on('click', function(){
+    $('#color-picker > div').removeClass('selected');
+    $(this).addClass('selected');
+    drawingApp.ctx.strokeStyle = "#fff";
+    socket.emit("brush_change", {brush: '#fff'})
   });
   $("#draw-box canvas").mousedown(function(e){
     mousedown = true;
