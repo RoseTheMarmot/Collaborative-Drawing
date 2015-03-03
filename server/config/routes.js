@@ -15,4 +15,8 @@ module.exports = function(app){
 	app.get('/drawings', function(request, response){
 		Drawings.index(request, response);
 	});
+
+	app.post('/drawings', function(request, response){
+		Drawings.update(request, response);
+	});
 }

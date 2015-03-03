@@ -4,7 +4,9 @@
 
 var mongoose = require('mongoose');
 
-module.exports = {
+var initial = {
 	initColor: "#FF4000",
 	initSize:5
 }
+
+module.exports = initial;
