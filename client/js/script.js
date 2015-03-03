@@ -30,9 +30,34 @@ $(document).ready(function($){
     }
   }
 
-  var drawingApp = new App();
+  var ColorPicker = function(container_selector){
+    var colors = ['FF0000', 'FF00BB', 'CC00FF', '0080FF', '00FFFB', '00FF59', 'FFFF00', 'FF9100', 'FF4000'];
+    var boxes = colors.length;
+    function box(color){
+      return "<div style='width:20px;height:20px;display:inline-block;background-color:#"+color+";'></div>";
+    }
+    /*
+    function box(r, g, b){
+      return "<div style='width:20px;height:20px;display:inline-block;background-color:rgb("+r+", "+g+", "+b+");'></div>";
+    }
+    function r(x){
+      return Math.round(Math.sin(x*(2*Math.PI/boxes)+(Math.PI/2))*(255/2)+(255/2));
+    }
+    function g(x){
+      return Math.round(Math.sin(x*(2*Math.PI/boxes)-(Math.PI/2))*(255/2)+(255/2));
+    }*/
+    for(var i = 0; i < boxes; i++){
+      $(container_selector).append(box(colors[i]));
+    }
+  }
 
+  var drawingApp = new App();
+  var picker = new ColorPicker('#color-picker');
   var mousedown = false; //true false if the mouse is down while being moved
+  
+  $('#color-picker').on('click', 'div', function(){
+    drawingApp.ctx.strokeStyle = $(this).css('background-color');
+  });
   
   $("#draw-box canvas").mousedown(function(e){
     mousedown = true;
@@ -46,6 +71,9 @@ $(document).ready(function($){
     mousedown = false;
     drawingApp.draw(e.offsetX, e.offsetY, "dragend");
   });
+
+
+
 
 });
 
