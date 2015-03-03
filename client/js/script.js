@@ -36,18 +36,14 @@ $(document).ready(function($){
       return $("<div style='background-color:#"+color+";'></div>");
     }
     for(var i = 0; i < boxes; i++){
-      if(i+1 === boxes){
-        $(container_selector).append(box(colors[i]).addClass('selected'));
-      }else{
-        $(container_selector).append(box(colors[i]));
-      }
+      $(container_selector).append(box(colors[i]));
     }
   }
 
   var BrushPicker = function(container_selector){
-    var sizes = [1, 3, 5, 7];
+    var sizes = [2, 5, 8, 11];
     function box(size){
-      return $("<div style='width:"+size+"px;height:"+size+"px;border-radius:"+size+"px;'></div>");
+      return $("<div size="+size+"><div style='width:"+size+"px;height:"+size+"px;border-radius:"+size+"px;'></div></div>");
     }
     for(var i = 0; i < sizes.length; i++){
       $(container_selector).append(box(sizes[i]));
@@ -64,6 +60,14 @@ $(document).ready(function($){
     var newColor = $(this).css("background-color");
     drawingApp.ctx.strokeStyle = newColor;
     socket.emit("color_change", {color: newColor});
+    $(this).addClass('selected').siblings().removeClass('selected');
+  });
+
+  $('#brush-picker').on('click', '> div', function(){
+    var newBrush = parseInt($(this).attr('size'));
+    console.log(newBrush);
+    drawingApp.ctx.lineWidth = newBrush;
+    socket.emit("brush_change", {brush: newBrush});
     $(this).addClass('selected').siblings().removeClass('selected');
   });
 
