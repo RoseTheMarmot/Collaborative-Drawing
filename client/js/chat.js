@@ -4,22 +4,33 @@ $(document).ready(function(){
    * Initialization
    */
   var socket = io.connect();
-  var userName = prompt("What's your name?");
+  var userName = "";
   var randNum = Math.floor(Math.random()*899)+100;
   var addMsg = function(message){
     $("#messages").append(message+"</br>");
     $("#messages").scrollTop($("#messages")[0].scrollHeight);
-  }
-  if(userName == "" || !userName){
-    userName = "Anonymous"+randNum;
   };
 
   /*
    * Document listeners, socket emits
    */
-  socket.emit("new_user", {name: userName});
+  $("#name-modal").modal();
+  $("#name-btn").click(function(){
+    userName = $("#input-name").val();
+    console.log(userName);
+    if(userName == "" || !userName){
+      userName = "Anonymous"+randNum;
+    };
+    socket.emit("new_user", {name: userName});
+  });
+  $("#no-name").click(function(){
+    if(userName == ""){
+      userName = "Anonymous"+randNum;
+    };
+    socket.emit("new_user", {name: userName});
+  });
   $(document).keydown(function(e){
-    if(e.keyCode == 13){
+    if(e.keyCode == 13 && userName !== ""){
       socket.emit("msg_send", {message: $("#message").val()});
       $("#message").val("").focus();
     };

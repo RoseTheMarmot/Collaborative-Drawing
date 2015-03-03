@@ -9,7 +9,6 @@ $(document).ready(function($){
   var brushes = new BrushPicker('#brush-picker', drawingApp);
   var mousedown = false; //true false if the mouse is down while being moved
 
-
   /*
    * Document listeners, socket emits
    */
