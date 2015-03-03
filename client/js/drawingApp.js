@@ -1,5 +1,4 @@
-var App = function(container_selector){
-
+var App = function(container_selector, init){
   //initializing the canvas
   this.canvas = document.createElement('canvas');
   this.canvas.height = 500;
@@ -8,8 +7,8 @@ var App = function(container_selector){
   //initializing the drawing brush
   this.ctx = this.canvas.getContext('2d');
   this.ctx.fillStyle = "solid";
-  this.ctx.strokeStyle = "#ff0000";
-  this.ctx.lineWidth = 5;
+  this.ctx.strokeStyle = init.initColor;
+  this.ctx.lineWidth = init.initSize;
   this.ctx.lineCap = "round";
 
   //adding the drawing area to the page

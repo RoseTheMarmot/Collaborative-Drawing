@@ -5,7 +5,7 @@ X force name for chatroom or impement login or have anonomus chatting (like goog
 - get old chats to show up for new users (chat log)
 
 Rose:
-- add erasor feature
+X add erasor feature
 - get the previously selected color to show up for new users
 - get the previously selected brush to show up for new users
 - get old drawings to show up for new users (drawing log)
