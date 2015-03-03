@@ -98,6 +98,11 @@ $(document).ready(function($){
     drawingApp.ctx.strokeStyle = data.color;
   });
 
+  //change brush size
+  socket.on("brush_changed", function(data){
+    drawingApp.ctx.lineWidth = data.brush;
+  });
+
   // clear canvas
   $("#clear_btn").on("click", function(){
     socket.emit("clear_canvas");

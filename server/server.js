@@ -56,6 +56,11 @@ io.sockets.on("connection", function(socket){
 		socket.broadcast.emit("color_changed", {color: data.color});
 	});
 
+	//brush chage
+	socket.on("brush_change", function(data){
+		socket.broadcast.emit("brush_changed", {brush: data.brush});
+	});
+
 	// clear canvas
 	socket.on("clear_canvas", function(){
 		socket.broadcast.emit("cleared");
