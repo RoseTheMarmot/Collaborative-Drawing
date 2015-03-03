@@ -31,18 +31,25 @@ io.sockets.on("connection", function(socket){
 	// chat feature
 	socket.on("new_user", function(data){
 		users[socket.id] = data.name;
-		io.emit("user_accepted", {name: data.name, chats: chat_msgs});
+		newMsg = "<span class='new-user'>"+data.name+" entered the chatroom!</span>"
+		chat_msgs.push(newMsg);
+		socket.emit("user_accepted", {chats: chat_msgs});
+		socket.broadcast.emit("user_entered", {chat: newMsg})
 	});
 	socket.on("msg_send", function(data){
 		newMsg = users[socket.id]+": "+data.message;
-		io.emit("msg_received", {message: newMsg});
 		chat_msgs.push(newMsg);
+		io.emit("msg_received", {chat: newMsg});
 	});
-	// issue: on disconnect, name not showing!
 	socket.on("disconnect", function(){
-		io.emit("user_disconnected", {name: users[socket.id]});
+		newMsg = "<span class='user-left'>"+users[socket.id] +" left the chatroom.</span>";
+		chat_msgs.push(newMsg);
+		socket.broadcast.emit("user_disconnected", {chat: newMsg});
 		if(users[socket.id]){
 			delete users[socket.id];
+		};
+		if(users.length === 0){
+			chat_msgs = [];
 		}
 	});
 

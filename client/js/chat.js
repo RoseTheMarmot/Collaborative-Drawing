@@ -1,28 +1,52 @@
 $(document).ready(function(){
+  
+  /*
+   * Initialization
+   */
   var socket = io.connect();
   var userName = prompt("What's your name?");
+  var randNum = Math.floor(Math.random()*899)+100;
+  var addMsg = function(message){
+    $("#messages").append(message+"</br>");
+    $("#messages").scrollTop($("#messages")[0].scrollHeight);
+  }
+  if(userName == "" || !userName){
+    userName = "Anonymous"+randNum;
+  };
+
+  /*
+   * Document listeners, socket emits
+   */
   socket.emit("new_user", {name: userName});
-  socket.on("user_accepted", function(data){
-    for(var i=0; i<data.chats.length; i++){
-      $("#messages").prepend(data.chats[i]+"</br>");
-    };
-    $("#messages").prepend(data.name+" entered the chatroom!</br>")
-  });
-  $("#send_btn").click(function(e){
-    e.preventDefault();
-    socket.emit("msg_send", {message: $("#message").val()});
-    $("#message").val("").focus();
-  });
   $(document).keydown(function(e){
     if(e.keyCode == 13){
       socket.emit("msg_send", {message: $("#message").val()});
       $("#message").val("").focus();
     };
   });
+  $("#send_btn").click(function(e){
+    e.preventDefault();
+    socket.emit("msg_send", {message: $("#message").val()});
+    $("#message").val("").focus();
+  });
+
+  /*
+   * Socket listeners
+   */
+  // showing chat log to new user
+  socket.on("user_accepted", function(data){
+    for(var i=0; i<data.chats.length; i++){
+      $("#messages").append(data.chats[i]+"</br>");
+    };
+    $("#messages").scrollTop($("#messages")[0].scrollHeight); 
+  });
+  socket.on("user_entered", function(data){
+    addMsg(data.chat);
+  });
   socket.on("msg_received", function(data){
-    $("#messages").prepend(data.message+"</br>");
+    addMsg(data.chat);
   });
   socket.on("user_disconnected", function(data){
-    $("#messages").prepend(data.name+" left the chatroom.</br>");
+    addMsg(data.chat);
   }); 
 });
