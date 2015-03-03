@@ -34,7 +34,7 @@ io.sockets.on("connection", function(socket){
 		newMsg = "<span class='new-user'>"+data.name+" entered the chatroom!</span>"
 		chat_msgs.push(newMsg);
 		socket.emit("user_accepted", {chats: chat_msgs});
-		socket.broadcast.emit("user_entered", {chat: newMsg})
+		socket.broadcast.emit("user_entered", {chat: newMsg});
 	});
 	socket.on("msg_send", function(data){
 		newMsg = users[socket.id]+": "+data.message;
@@ -42,15 +42,12 @@ io.sockets.on("connection", function(socket){
 		io.emit("msg_received", {chat: newMsg});
 	});
 	socket.on("disconnect", function(){
-		newMsg = "<span class='user-left'>"+users[socket.id] +" left the chatroom.</span>";
-		chat_msgs.push(newMsg);
-		socket.broadcast.emit("user_disconnected", {chat: newMsg});
 		if(users[socket.id]){
+			newMsg = "<span class='user-left'>"+users[socket.id] +" left the chatroom.</span>";
+			chat_msgs.push(newMsg);
+			socket.broadcast.emit("user_disconnected", {chat: newMsg});
 			delete users[socket.id];
 		};
-		if(users.length === 0){
-			chat_msgs = [];
-		}
 	});
 
 	// multi-user drawing
