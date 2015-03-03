@@ -12,7 +12,6 @@ $(document).ready(function($){
   $.get('/drawings', function(data){
     console.log(data);
     drawingApp = new App('#draw-box', data);
-    console.log(drawingApp);
     colors = new ColorPicker('#color-picker', data.initColor, drawingApp);
     brushes = new BrushPicker('#brush-picker', data.initSize, drawingApp);
   },
@@ -25,17 +24,19 @@ $(document).ready(function($){
   $('#color-picker').on('click', 'div', function(){
     $('#erase-button').removeClass('selected');
     socket.emit("color_change", {color: colors.changeColor($(this))});
+    drawingApp.savePrefs();
   });
   //selecting a new brush size
   $('#brush-picker').on('click', '> div', function(){
     socket.emit("brush_change", {brush: brushes.changeBrush($(this))});
+    drawingApp.savePrefs();
   });
   //selecting the erasor
   $('#erase-button').on('click', function(){
     $('#color-picker > div').removeClass('selected');
     $(this).addClass('selected');
     drawingApp.ctx.strokeStyle = "#fff";
-    socket.emit("brush_change", {brush: '#fff'})
+    socket.emit("brush_change", {brush: '#fff'});
   });
   //drawing a line and starting a line
   $("#draw-box").on('mousedown', 'canvas', function(e){

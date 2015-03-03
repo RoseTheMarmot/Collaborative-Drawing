@@ -6,7 +6,7 @@ var mongoose = 	require('mongoose');
 var fs 		 = 	require('fs');
 
 //connect to mongodb server
-//mongoose.connect('mongodb://localhost/<db_name>');
+mongoose.connect('mongodb://localhost/CollaborativeDrawing');
 
 //require all .js files in the modles directory
 var models_path = __dirname + "/../models";

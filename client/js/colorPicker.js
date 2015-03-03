@@ -7,7 +7,7 @@ var ColorPicker = function(container_selector, initColor, drawingApp){
   }
   
   for(var i = 0; i < boxes; i++){
-    if(colors[i] == initColor){
+    if(colors[i].toLowerCase() == initColor){
       $(container_selector).append(box(colors[i]).addClass('selected'));
     }else{
       $(container_selector).append(box(colors[i]));

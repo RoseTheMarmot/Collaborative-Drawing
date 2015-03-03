@@ -26,4 +26,15 @@ var App = function(container_selector, init){
       return this.ctx.closePath();
     }
   }
+
+  //saves drawing settings
+  this.savePrefs = function(){
+    $.post(
+      '/drawings', 
+      {initColor: this.ctx.strokeStyle, initSize: this.ctx.lineWidth},
+      function(data){
+        console.log(data);
+      },
+      'json');
+  }
 }
