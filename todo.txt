@@ -10,6 +10,7 @@ Rose:
 - get old drawings to show up for new users (drawing log)
 
 later:
+- undo last stroke
 - implement automattic deletion of really old chats
 - add more "dynamic" color selection
 - force name for chatroom or impement login or have anonomus chatting (like google docs)
