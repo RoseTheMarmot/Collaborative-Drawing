@@ -1,6 +1,6 @@
 Niki
 - implement reset on canvas
-- fix "undifined has left the chatroom"
+X fix "undifined has left the chatroom"
 - get old chats to show up for new users (chat log)
 
 Rose:

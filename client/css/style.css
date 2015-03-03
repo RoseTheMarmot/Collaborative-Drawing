@@ -21,6 +21,12 @@ canvas {
 #chat-box input, #chat-box button{
 	margin-top: 10px;
 }
+.user-left{
+	color: #CC0000;
+}
+.new-user{
+	color: #0033CC;
+}
 #messages{
 	height: 460px;
 	width: 100%;
