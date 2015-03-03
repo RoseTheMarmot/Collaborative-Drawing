@@ -48,5 +48,5 @@ $(document).ready(function(){
   });
   socket.on("user_disconnected", function(data){
     addMsg(data.chat);
-  }); 
+  });
 });

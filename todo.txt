@@ -1,8 +1,8 @@
-Niki
-- implement reset on canvas
+Nikki
+X implement reset on canvas
 X fix "undifined has left the chatroom"
 X force name for chatroom or impement login or have anonomus chatting (like google docs)
-- get old chats to show up for new users (chat log)
+X get old chats to show up for new users (chat log)
 
 Rose:
 X add erasor feature
@@ -14,3 +14,4 @@ later:
 - undo last stroke
 - implement automattic deletion of really old chats
 - add more "dynamic" color selection
+- lightbox instead of prompt
