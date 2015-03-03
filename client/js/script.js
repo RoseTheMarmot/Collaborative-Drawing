@@ -60,8 +60,10 @@ $(document).ready(function($){
   var mousedown = false; //true false if the mouse is down while being moved
   
   $('#color-picker').on('click', 'div', function(){
+    var newColor = $(this).css("background-color");
+    drawingApp.ctx.strokeStyle = newColor;
+    socket.emit("color_change", {color: newColor});
     $(this).addClass('selected').siblings().removeClass('selected');
-    drawingApp.ctx.strokeStyle = $(this).css('background-color');
   });
 
   $("#draw-box canvas").mousedown(function(e){
@@ -81,13 +83,21 @@ $(document).ready(function($){
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragend"});
   });
 
+  // multi-user drawing
   socket.on("draw", function(data){
     drawingApp.draw(data.x, data.y, data.type);
   });
 
+  // change colors
+  socket.on("color_changed", function(data){
+    drawingApp.ctx.strokeStyle = data.color;
+  });
+
+  // clear canvas
+  $("#clear_btn").on("click", function(){
+    socket.emit("clear_canvas");
+  })
+  socket.on("cleared", function(){
+    drawingApp.ctx.clearRect(0, 0, canvas.width, canvas.height);
+  })
 });
-
-
-
-
-

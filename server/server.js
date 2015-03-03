@@ -50,4 +50,14 @@ io.sockets.on("connection", function(socket){
 	socket.on("drawing", function(data){
 		socket.broadcast.emit("draw", {x: data.x, y: data.y, type: data.type})
 	});
+
+	// color change
+	socket.on("color_change", function(data){
+		socket.broadcast.emit("color_changed", {color: data.color});
+	});
+
+	// clear canvas
+	socket.on("clear_canvas", function(){
+		socket.broadcast.emit("cleared");
+	})
 });

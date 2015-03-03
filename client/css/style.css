@@ -40,3 +40,7 @@ canvas {
 	box-shadow: 1px 1px 5px #333;
 }
 
+#color-picker button{
+	margin-top: -3px;
+}
+
