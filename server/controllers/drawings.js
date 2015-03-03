@@ -30,7 +30,7 @@ module.exports = {
 					Drawing.update({__id: result.__id}, {
 						initColor: request.body.initColor, 
 						initSize: request.body.initSize, 
-						initCanvas: ""}, 
+						initCanvas: request.body.initCanvas}, 
 						function(err){
 							if(err){
 								console.log(err);
@@ -41,7 +41,7 @@ module.exports = {
 					var newDrawing = new Drawing({
 						initColor: request.body.initColor, 
 						initSize: request.body.initSize, 
-						initCanvas: ""});
+						initCanvas: request.body.initCanvas});
 					newDrawing.save(function(err, newDrawing){
 						if(err){
 							console.log(err);
@@ -50,5 +50,6 @@ module.exports = {
 				}
 			}
 		});
+		response.send({});
 	}
 }

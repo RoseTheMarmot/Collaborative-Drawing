@@ -10,7 +10,7 @@ Rose:
 X add erasor feature
 X get the previously selected color to show up for new users
 X get the previously selected brush to show up for new users
-- get old drawings to show up for new users (drawing log)
+X get old drawings to show up for new users (drawing log)
 
 later:
 - implement automattic deletion of really old chats

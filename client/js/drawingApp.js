@@ -10,7 +10,8 @@ var App = function(container_selector, init){
   this.ctx.strokeStyle = init.initColor;
   this.ctx.lineWidth = init.initSize;
   this.ctx.lineCap = "round";
-
+  setDrawing(this);
+  
   //adding the drawing area to the page
   $(container_selector).append(this.canvas);
 
@@ -31,10 +32,17 @@ var App = function(container_selector, init){
   this.savePrefs = function(){
     $.post(
       '/drawings', 
-      {initColor: this.ctx.strokeStyle, initSize: this.ctx.lineWidth},
-      function(data){
-        console.log(data);
-      },
+      {initColor: this.ctx.strokeStyle, initSize: this.ctx.lineWidth, initCanvas: this.canvas.toDataURL()},
+      function(data){},
       'json');
+  }
+
+  //loads previous drawings into the canvas
+  function setDrawing(app){
+    var img = new Image;
+    img.onload = function(){
+      app.ctx.drawImage(img,0,0);
+    };
+    img.src = init.initCanvas;
   }
 }

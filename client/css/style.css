@@ -10,6 +10,9 @@ canvas {
 .row {
 	margin: 20px 0px;
 }
+#draw-box{
+	
+}
 #draw-box, #chat-box{
 	min-height: 500px;
 	width: 100%;

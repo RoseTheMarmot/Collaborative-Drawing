@@ -10,7 +10,6 @@ $(document).ready(function($){
   var mousedown = false; //true false if the mouse is down while being moved
 
   $.get('/drawings', function(data){
-    console.log(data);
     drawingApp = new App('#draw-box', data);
     colors = new ColorPicker('#color-picker', data.initColor, drawingApp);
     brushes = new BrushPicker('#brush-picker', data.initSize, drawingApp);
@@ -57,6 +56,7 @@ $(document).ready(function($){
     mousedown = false;
     drawingApp.draw(e.offsetX, e.offsetY, "dragend");
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragend"});
+    drawingApp.savePrefs();
   });
   // clear canvas
   $("#clear_btn").click(function(){
@@ -82,5 +82,6 @@ $(document).ready(function($){
   //clear drawing area
   socket.on("cleared", function(){
     drawingApp.ctx.clearRect(0, 0, drawingApp.canvas.width, drawingApp.canvas.height);
+    drawingApp.savePrefs();
   });
 });
