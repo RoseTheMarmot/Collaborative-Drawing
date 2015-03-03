@@ -1,18 +1,19 @@
-var App = function(){
+var App = function(container_selector){
 
   //initializing the canvas
   this.canvas = document.createElement('canvas');
   this.canvas.height = 500;
   this.canvas.width = parseInt($('#draw-box').css('width')); //600
-
-  $('#draw-box').append(this.canvas);
-
+  
   //initializing the drawing brush
   this.ctx = this.canvas.getContext('2d');
   this.ctx.fillStyle = "solid";
   this.ctx.strokeStyle = "#ff0000";
   this.ctx.lineWidth = 5;
   this.ctx.lineCap = "round";
+
+  //adding the drawing area to the page
+  $(container_selector).append(this.canvas);
 
   //draws lines on the canvas
   this.draw = function(x,y,type){
