@@ -13,7 +13,7 @@
 form label {
 	margin-top: 5px;
 }
-<<<<<<< HEAD
+
 #test {
 	position: absolute;
 	background-color: blue;
@@ -21,7 +21,7 @@ form label {
 	left: 10px;
 	width: 30px;
 	height: 30px;
-=======
+}
 
 #draw-box, #chat-box{
 	min-height: 500px;
@@ -35,10 +35,8 @@ form label {
 }
 
 #messages{
-	height: 420px;
+	height: 460px;
 	width: 100%;
 	padding: 5px;
 	border: 1px solid #000;
 	overflow: scroll;
->>>>>>> Nikki
-}

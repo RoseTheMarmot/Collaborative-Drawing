@@ -27,9 +27,6 @@ var users = [];
 var chat_msgs = [];
 
 io.sockets.on("connection", function(socket){
-	// socket.on("draw", function(data){
-	// 	socket.broadcast.emit **line info
-	// })
 
 	// chat feature
 	socket.on("new_user", function(data){
@@ -47,5 +44,8 @@ io.sockets.on("connection", function(socket){
 		if(users[socket.id]){
 			delete users[socket.id];
 		}
+	});
+	socket.on("drawing", function(data){
+		socket.broadcast.emit("draw", {x: data.x, y: data.y, type: data.type})
 	});
 });
