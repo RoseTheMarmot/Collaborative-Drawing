@@ -72,9 +72,6 @@ $(document).ready(function($){
     drawingApp.draw(e.offsetX, e.offsetY, "dragend");
   });
 
-
-
-
 });
 
 
