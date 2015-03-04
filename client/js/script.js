@@ -57,10 +57,19 @@ $(document).ready(function($){
     drawingApp.draw(e.offsetX, e.offsetY, "dragend");
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragend"});
     drawingApp.savePrefs();
+    drawingApp.pushHistory();
   });
   // clear canvas
   $("#clear_btn").click(function(){
     socket.emit("clear_canvas");
+  });
+  // undo
+  $("#undo_btn").click(function(){
+    socket.emit("undoing_move");
+  });
+  // redo
+  $("#redo_btn").click(function(){
+    socket.emit("redoing_move");
   });
 
 
@@ -83,5 +92,13 @@ $(document).ready(function($){
   socket.on("cleared", function(){
     drawingApp.ctx.clearRect(0, 0, drawingApp.canvas.width, drawingApp.canvas.height);
     drawingApp.savePrefs();
+  });
+  // undo move
+  socket.on("undo_move", function(){
+    drawingApp.undoStep();
+  });
+  // redo move
+  socket.on("redo_move", function(){
+    drawingApp.redoStep();
   });
 });

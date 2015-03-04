@@ -17,7 +17,6 @@ $(document).ready(function(){
   $("#name-modal").modal();
   $("#name-btn").click(function(){
     userName = $("#input-name").val();
-    console.log(userName);
     if(userName == "" || !userName){
       userName = "Anonymous"+randNum;
     };

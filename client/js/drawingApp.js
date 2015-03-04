@@ -45,4 +45,36 @@ var App = function(container_selector, init){
     };
     img.src = init.initCanvas;
   }
+
+  // saves drawing moves for undo/redo
+  var history = [];
+  var step = -1;
+
+  this.pushHistory = function(){
+    step++;
+    if(step<history.length){ 
+      history.length = step; 
+    }
+    history.push(document.getElementById("draw-box").toDataURL());
+  };
+  this.undoStep = function(){
+    if(step>0){
+      step--;
+      var img = new Image();
+      img.src = history[step];
+      img.onload = function(){ 
+        app.ctx.drawImage(img, 0, 0);
+      };
+    };
+  };
+  this.redoStep = function(){
+    if(step<history.length-1){
+      step++;
+      var img = new Image();
+      img.src = history[step];
+      img.onload = function(){ 
+        app.ctx.drawImage(img, 0, 0); 
+      };
+    };
+  };
 }
