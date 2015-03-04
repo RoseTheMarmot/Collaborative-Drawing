@@ -10,8 +10,16 @@ canvas {
 .row {
 	margin: 20px 0px;
 }
-#draw-box{
-	
+.col-fixed-8{
+	width: 640px;
+}
+.col-fixed-4{
+	width: 320px;
+}
+.col-fixed-8, .col-fixed-4{
+	display: inline-block;
+	vertical-align: top;
+	padding: 0px 10px;
 }
 #draw-box, #chat-box{
 	min-height: 500px;
@@ -78,5 +86,17 @@ canvas {
 	display: inline-block;
 	vertical-align:top;
 	padding: 2px;
+}
+@media all and (max-width: 1093px){
+	.chat-box{
+		width: 640px;
+	}
+	#messages{
+		height: 200px;
+	}
+	#chat-box{
+		min-height: 10px;
+		overflow: hidden;
+	}
 }
 
