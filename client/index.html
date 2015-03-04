@@ -20,14 +20,16 @@
 
   <!-- Scripts
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- external scripts -->
   <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/js/drawingApp.js"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <!-- app scripts -->
+  <script type="text/javascript" src="/js/canvas.js"></script>
   <script type="text/javascript" src="/js/colorPicker.js"></script>
   <script type="text/javascript" src="/js/brushPicker.js"></script>
+  <script type="text/javascript" src="/js/eraser.js"></script>
   <script type="text/javascript" src="/js/script.js"></script> 
-
-  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <script type="text/javascript" src="/js/chat.js"></script>
 
   <!-- Favicon
@@ -35,6 +37,8 @@
   <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 <body>
+  <!-- initial page dialog box
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="modal" id="name-modal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -52,7 +56,9 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-  <!-- Navbar -->
+  
+  <!-- main page
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <a href="" class="navbar-brand">Draw!</a>
@@ -60,7 +66,8 @@
   </nav>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-8">
+      
+      <div class="col-fixed-8">
         <div class="well well-sm picker">
           <div id="color-picker"></div>
           <span id="erase-button" class="glyphicon glyphicon-erase" aria-hidden="true"></span>
@@ -73,14 +80,16 @@
           <!-- Canvas goes here -->
         </div>
       </div>
-      <div class="col-sm-4">
+
+      <div class="col-fixed-4 chat-box">
         <div id="chat-box" class="well">
           <div id="messages" class="panel panel-default">
             <!-- Chat messages append here -->
           </div>
           <input type="text" id="message" placeholder="Type your message..." class="form-control">
-          <button class="btn btn-default pull-right" id="send_btn">Send</button>
+          <button class="btn btn-success pull-right" id="send_btn">Send</button>
         </div>
+
     </div>
   </div>
 </body>

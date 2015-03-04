@@ -1,9 +1,9 @@
-var App = function(container_selector, init){
+var Canvas = function(container_selector, init){
   //initializing the canvas
   this.canvas = document.createElement('canvas');
   this.canvas.height = 500;
   this.canvas.width = parseInt($('#draw-box').css('width')); //600
-  
+
   //initializing the drawing brush
   this.ctx = this.canvas.getContext('2d');
   this.ctx.fillStyle = "solid";
@@ -29,7 +29,7 @@ var App = function(container_selector, init){
   }
 
   //saves drawing settings
-  this.savePrefs = function(){
+  this.save = function(){
     $.post(
       '/drawings', 
       {initColor: this.ctx.strokeStyle, initSize: this.ctx.lineWidth, initCanvas: this.canvas.toDataURL()},
