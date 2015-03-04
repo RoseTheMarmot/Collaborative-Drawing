@@ -37,12 +37,6 @@ var App = function(container_selector, init){
       'json');
   }
 
-  //reverts ctx settings to myctx saved settings
-  this.revert = function(){
-    this.ctx.strokeStyle = this.myctx.strokeStyle;
-    this.ctx.lineWidth = this.myctx.lineWidth;
-  }
-
   //loads previous drawings into the canvas
   function setDrawing(app){
     var img = new Image;

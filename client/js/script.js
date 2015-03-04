@@ -7,43 +7,52 @@ $(document).ready(function($){
   var drawingApp = {};
   var colors = {};
   var brushes = {};
+  var eraser = {};
   var mousedown = false; //true false if the mouse is down while being moved
+  var curColor;
+  var curBrush;
 
   $.get('/drawings', function(data){
-    drawingApp = new App('#draw-box', data);
-    colors = new ColorPicker('#color-picker', data.initColor, drawingApp);
-    brushes = new BrushPicker('#brush-picker', data.initSize, drawingApp);
-  },
-  'json');
+      curColor = data.initColor;
+      curBrush = data.initSize;
+      drawingApp = new App('#draw-box', data);
+      colors = new ColorPicker('#color-picker', data.initColor, drawingApp);
+      brushes = new BrushPicker('#brush-picker', data.initSize, drawingApp);
+      eraser = new Erase($('#erase-button'), '#ffffff', drawingApp);
+    },
+    'json');
+
 
   /*
    * Document listeners, socket emits
    */
   //selecting a new color from the color picker
-  $('#color-picker').on('click', 'div', function(){
+  $('#color-picker').on('click', '> div', function(){
     $('#erase-button').removeClass('selected');
-    socket.emit("color_change", {color: colors.changeColor($(this))});
+    curColor = colors.changeColor($(this));
+    socket.emit("color_change", {color: curColor});
     drawingApp.save();
   });
   //selecting a new brush size
   $('#brush-picker').on('click', '> div', function(){
-    socket.emit("brush_change", {brush: brushes.changeBrush($(this))});
+    curBrush = brushes.changeBrush($(this));
+    socket.emit("brush_change", {brush: curBrush});
     drawingApp.save();
   });
   //selecting the erasor
   $('#erase-button').on('click', function(){
     $('#color-picker > div').removeClass('selected');
     $(this).addClass('selected');
-    drawingApp.ctx.strokeStyle = "#fff";
-    socket.emit("brush_change", {brush: '#fff'});
+    curColor = eraser.use();
+    socket.emit("brush_change", {brush: curColor});
   });
-
   //drawing a line and starting a line
   $("#draw-box").on('mousedown', 'canvas', function(e){
     mousedown = true;
-    
-    socket.emit("color_change", {color: colors.changeColor($('#color-picker .selected'))});
-    socket.emit("brush_change", {brush: brushes.changeBrush($('#brush-picker .selected'))});
+    socket.emit("color_change", {color: curColor});
+    socket.emit("brush_change", {brush: curBrush});
+    drawingApp.ctx.strokeStyle = curColor;
+    drawingApp.ctx.lineWidth = curBrush;
     drawingApp.draw(e.offsetX, e.offsetY, "dragstart");
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragstart"});
   });
