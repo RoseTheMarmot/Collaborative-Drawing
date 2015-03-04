@@ -1,5 +1,4 @@
 $(document).ready(function($){
-
   /*
    * Initialization
    */
@@ -42,21 +41,16 @@ $(document).ready(function($){
   //selecting the erasor
   $('#erase-button').on('click', function(){
     $('#color-picker > div').removeClass('selected');
-    $(this).addClass('selected');
     curColor = eraser.use();
     socket.emit("brush_change", {brush: curColor});
   });
   //drawing a line and starting a line
   $("#draw-box").on('mousedown', 'canvas', function(e){
     mousedown = true;
-    socket.emit("color_change", {color: curColor});
-    socket.emit("brush_change", {brush: curBrush});
-    drawingApp.ctx.strokeStyle = curColor;
-    drawingApp.ctx.lineWidth = curBrush;
+    reset();
     drawingApp.draw(e.offsetX, e.offsetY, "dragstart");
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragstart"});
-  });
-  $("#draw-box").on('mousemove', 'canvas', function(e){
+  }).on('mousemove', 'canvas', function(e){
     if(mousedown){ 
       drawingApp.draw(e.offsetX, e.offsetY, "drag");
       socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "drag"});
@@ -76,6 +70,12 @@ $(document).ready(function($){
     socket.emit("clear_canvas");
   });
 
+  function reset(){ //resets the canvas
+    socket.emit("color_change", {color: curColor});
+    socket.emit("brush_change", {brush: curBrush});
+    drawingApp.ctx.strokeStyle = curColor;
+    drawingApp.ctx.lineWidth = curBrush;
+  }
 
   /*
    * Socket listeners

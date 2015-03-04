@@ -3,7 +3,7 @@ var App = function(container_selector, init){
   this.canvas = document.createElement('canvas');
   this.canvas.height = 500;
   this.canvas.width = parseInt($('#draw-box').css('width')); //600
-  
+
   //initializing the drawing brush
   this.ctx = this.canvas.getContext('2d');
   this.ctx.fillStyle = "solid";

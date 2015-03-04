@@ -4,7 +4,7 @@ var Erase = function(element, background, drawingApp){
 
 	this.use = function(){
 		var newColor = this.element.attr('color');
-		console.log("changing color to:", newColor);
+		this.element.addClass('selected');
 		drawingApp.ctx.strokeStyle = newColor;
 		return newColor;
 	}
