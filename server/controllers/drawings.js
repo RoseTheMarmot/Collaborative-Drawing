@@ -7,24 +7,28 @@ var Drawing 	= mongoose.model('drawing');
 var Drawing2	= require(__dirname+"/../models/Drawing.js");
 
 module.exports = {
-	index: function(request, response){
+	index: function(request, response){ //gets the drawing data
 		Drawing.find({}).sort({_id: -1}).limit(1).exec(function(err, result){
 			if(err){
 				console.log(err);
 			}else{
 				if(result.length > 0){
+					//returns the first drawing entry
+					//only one entry is kept in the db, and updated.
+					//more entries could be for multiple chatrooms
 					response.send(result[0]);
 				}else{
-					response.send(Drawing2);
+					//if no privious data exists, the model returns some default values
+					response.send(Drawing2); 
 				}
 			}
 		});
 	},
-	update: function(request, response){
+	update: function(request, response){ //saves the drawing data
 		Drawing.find({}).sort({_id: -1}).limit(1).exec(function(err, result){
 			if(err){
 				console.log(err);
-			}else{
+			}else{ //check for already existing drawing entry
 				if(result.length > 0){
 					//update
 					Drawing.update({__id: result.__id}, {
@@ -50,6 +54,6 @@ module.exports = {
 				}
 			}
 		});
-		response.send({});
+		response.send({}); //important! keeps the jQuery post from timing out
 	}
 }
