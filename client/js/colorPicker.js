@@ -12,7 +12,7 @@ var ColorPicker = function(container_selector, initColor, drawingApp){
 
   this.changeColor = function(current){
   	var newColor = current.css("background-color");
-    drawingApp.ctx.strokeStyle = newColor;
+    canvas.ctx.strokeStyle = newColor;
     current.addClass('selected').siblings().removeClass('selected');
     return newColor;
   }
