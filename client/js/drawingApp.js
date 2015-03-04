@@ -29,12 +29,18 @@ var App = function(container_selector, init){
   }
 
   //saves drawing settings
-  this.savePrefs = function(){
+  this.save = function(){
     $.post(
       '/drawings', 
       {initColor: this.ctx.strokeStyle, initSize: this.ctx.lineWidth, initCanvas: this.canvas.toDataURL()},
       function(data){},
       'json');
+  }
+
+  //reverts ctx settings to myctx saved settings
+  this.revert = function(){
+    this.ctx.strokeStyle = this.myctx.strokeStyle;
+    this.ctx.lineWidth = this.myctx.lineWidth;
   }
 
   //loads previous drawings into the canvas

@@ -23,12 +23,12 @@ $(document).ready(function($){
   $('#color-picker').on('click', 'div', function(){
     $('#erase-button').removeClass('selected');
     socket.emit("color_change", {color: colors.changeColor($(this))});
-    drawingApp.savePrefs();
+    drawingApp.save();
   });
   //selecting a new brush size
   $('#brush-picker').on('click', '> div', function(){
     socket.emit("brush_change", {brush: brushes.changeBrush($(this))});
-    drawingApp.savePrefs();
+    drawingApp.save();
   });
   //selecting the erasor
   $('#erase-button').on('click', function(){
@@ -37,9 +37,13 @@ $(document).ready(function($){
     drawingApp.ctx.strokeStyle = "#fff";
     socket.emit("brush_change", {brush: '#fff'});
   });
+
   //drawing a line and starting a line
   $("#draw-box").on('mousedown', 'canvas', function(e){
     mousedown = true;
+    
+    socket.emit("color_change", {color: colors.changeColor($('#color-picker .selected'))});
+    socket.emit("brush_change", {brush: brushes.changeBrush($('#brush-picker .selected'))});
     drawingApp.draw(e.offsetX, e.offsetY, "dragstart");
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragstart"});
   });
@@ -56,7 +60,7 @@ $(document).ready(function($){
     mousedown = false;
     drawingApp.draw(e.offsetX, e.offsetY, "dragend");
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragend"});
-    drawingApp.savePrefs();
+    drawingApp.save();
   });
   // clear canvas
   $("#clear_btn").click(function(){
@@ -82,6 +86,6 @@ $(document).ready(function($){
   //clear drawing area
   socket.on("cleared", function(){
     drawingApp.ctx.clearRect(0, 0, drawingApp.canvas.width, drawingApp.canvas.height);
-    drawingApp.savePrefs();
+    drawingApp.save();
   });
 });
