@@ -1,4 +1,4 @@
-var App = function(container_selector, init){
+var Canvas = function(container_selector, init){
   //initializing the canvas
   this.canvas = document.createElement('canvas');
   this.canvas.height = 500;

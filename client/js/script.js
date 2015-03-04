@@ -3,7 +3,7 @@ $(document).ready(function($){
    * Initialization
    */
   var socket = io.connect();
-  var drawingApp = {};
+  var canvas = {};
   var colors = {};
   var brushes = {};
   var eraser = {};
@@ -14,10 +14,10 @@ $(document).ready(function($){
   $.get('/drawings', function(data){
       curColor = data.initColor;
       curBrush = data.initSize;
-      drawingApp = new App('#draw-box', data);
-      colors = new ColorPicker('#color-picker', data.initColor, drawingApp);
-      brushes = new BrushPicker('#brush-picker', data.initSize, drawingApp);
-      eraser = new Erase($('#erase-button'), '#ffffff', drawingApp);
+      canvas = new Canvas('#draw-box', data);
+      colors = new ColorPicker('#color-picker', data.initColor, canvas);
+      brushes = new BrushPicker('#brush-picker', data.initSize, canvas);
+      eraser = new Erase($('#erase-button'), '#ffffff', canvas);
     },
     'json');
 
@@ -30,13 +30,13 @@ $(document).ready(function($){
     $('#erase-button').removeClass('selected');
     curColor = colors.changeColor($(this));
     socket.emit("color_change", {color: curColor});
-    drawingApp.save();
+    canvas.save();
   });
   //selecting a new brush size
   $('#brush-picker').on('click', '> div', function(){
     curBrush = brushes.changeBrush($(this));
     socket.emit("brush_change", {brush: curBrush});
-    drawingApp.save();
+    canvas.save();
   });
   //selecting the erasor
   $('#erase-button').on('click', function(){
@@ -48,11 +48,11 @@ $(document).ready(function($){
   $("#draw-box").on('mousedown', 'canvas', function(e){
     mousedown = true;
     reset();
-    drawingApp.draw(e.offsetX, e.offsetY, "dragstart");
+    canvas.draw(e.offsetX, e.offsetY, "dragstart");
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragstart"});
   }).on('mousemove', 'canvas', function(e){
     if(mousedown){ 
-      drawingApp.draw(e.offsetX, e.offsetY, "drag");
+      canvas.draw(e.offsetX, e.offsetY, "drag");
       socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "drag"});
     }
   });
@@ -61,9 +61,9 @@ $(document).ready(function($){
     //listens to whole document so that path will be ended even if user
     //is off the drawing screen
     mousedown = false;
-    drawingApp.draw(e.offsetX, e.offsetY, "dragend");
+    canvas.draw(e.offsetX, e.offsetY, "dragend");
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragend"});
-    drawingApp.save();
+    canvas.save();
   });
   // clear canvas
   $("#clear_btn").click(function(){
@@ -73,8 +73,8 @@ $(document).ready(function($){
   function reset(){ //resets the canvas
     socket.emit("color_change", {color: curColor});
     socket.emit("brush_change", {brush: curBrush});
-    drawingApp.ctx.strokeStyle = curColor;
-    drawingApp.ctx.lineWidth = curBrush;
+    canvas.ctx.strokeStyle = curColor;
+    canvas.ctx.lineWidth = curBrush;
   }
 
   /*
@@ -82,19 +82,19 @@ $(document).ready(function($){
    */
   // multi-user drawing
   socket.on("draw", function(data){
-    drawingApp.draw(data.x, data.y, data.type);
+    canvas.draw(data.x, data.y, data.type);
   });
   // change colors
   socket.on("color_changed", function(data){
-    drawingApp.ctx.strokeStyle = data.color;
+    canvas.ctx.strokeStyle = data.color;
   });
   //change brush size
   socket.on("brush_changed", function(data){
-    drawingApp.ctx.lineWidth = data.brush;
+    canvas.ctx.lineWidth = data.brush;
   });
   //clear drawing area
   socket.on("cleared", function(){
-    drawingApp.ctx.clearRect(0, 0, drawingApp.canvas.width, drawingApp.canvas.height);
-    drawingApp.save();
+    canvas.ctx.clearRect(0, 0, canvas.canvas.width, canvas.canvas.height);
+    canvas.save();
   });
 });
