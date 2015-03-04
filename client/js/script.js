@@ -64,7 +64,6 @@ $(document).ready(function($){
     canvas.draw(e.offsetX, e.offsetY, "dragend");
     socket.emit("drawing", {x: e.offsetX, y: e.offsetY, type: "dragend"});
     canvas.save();
-    canvas.pushHistory();
   });
   // clear canvas
   $("#clear_btn").click(function(){
@@ -84,6 +83,8 @@ $(document).ready(function($){
     socket.emit("brush_change", {brush: curBrush});
     canvas.ctx.strokeStyle = curColor;
     canvas.ctx.lineWidth = curBrush;
+    canvas.history = [];
+    canvas.step = -1;
   }
 
   /*
