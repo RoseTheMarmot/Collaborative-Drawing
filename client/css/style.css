@@ -103,4 +103,7 @@ canvas {
 		overflow: hidden;
 	}
 }
+#state-buttons{
+	text-align: right;
+}
 

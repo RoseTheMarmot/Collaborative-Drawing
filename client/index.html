@@ -69,12 +69,16 @@
       
       <div class="col-fixed-8">
         <div class="well well-sm picker">
-          <div id="color-picker"></div>
+          <div  id="color-picker"></div>
           <span id="erase-button" class="glyphicon glyphicon-erase" aria-hidden="true"></span>
-          <div id="brush-picker"></div>
-          <button class="btn btn-default btn-sm pull-right" id="clear_btn">Reset Canvas</button>
-          <button class="btn btn-default btn-sm pull-right" id="redo_btn">Redo</button>
-          <button class="btn btn-default btn-sm pull-right" id="undo_btn">Undo</button>
+          <div  id="brush-picker"></div>
+          <div  id="state-buttons" class="pull-right">
+            <div class="btn-group" role="group" aria-label="">
+              <button class="btn btn-info btn-sm" id="redo_btn">Redo</button>
+              <button class="btn btn-danger btn-sm" id="undo_btn">Undo</button>
+            </div>
+            <button class="btn btn-default btn-sm" id="clear_btn">Reset</button>
+          </div>
         </div>
         <div id="draw-box" class="panel panel-default">
           <!-- Canvas goes here -->
