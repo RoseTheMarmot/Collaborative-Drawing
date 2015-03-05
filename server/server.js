@@ -68,5 +68,15 @@ io.sockets.on("connection", function(socket){
 	// clear canvas
 	socket.on("clear_canvas", function(){
 		io.emit("cleared");
-	})
+	});
+
+	// undo move
+	socket.on("undoing_move", function(){
+		io.emit("undo_move");
+	});
+	// redo move
+	socket.on("redoing_move", function(){
+		io.emit("redo_move");
+	});
+	
 });

@@ -1,6 +1,7 @@
 var Canvas = function(container_selector, init){
   //initializing the canvas
   this.canvas = document.createElement('canvas');
+  this.canvas.id = "canvas_id"
   this.canvas.height = 500;
   this.canvas.width = parseInt($('#draw-box').css('width')); //600
 
@@ -18,6 +19,7 @@ var Canvas = function(container_selector, init){
   //draws lines on the canvas
   this.draw = function(x,y,type){
     if(type == "dragstart"){
+      this.pushHistory();
       this.ctx.beginPath();
       return this.ctx.moveTo(x,y);
     }else if(type == "drag"){
@@ -45,4 +47,41 @@ var Canvas = function(container_selector, init){
     };
     img.src = init.initCanvas;
   }
+
+  // saves drawing moves for undo/redo
+  var history = [];
+  var step = -1;
+  var ctx = this.ctx;
+  this.pushHistory = function(){
+    step++;
+    if(step<history.length){ 
+      history.length = step; 
+    }
+    history.push(document.getElementById("canvas_id").toDataURL());
+  };
+  this.undoStep = function(){
+    if(step === history.length-1){
+      this.pushHistory();
+    }
+    if(step>=0){
+      step--;
+      var canvasImg = new Image();
+      canvasImg.src = history[step];
+      canvasImg.onload = function(){ 
+        ctx.clearRect(0, 0, this.width, this.height);
+        ctx.drawImage(canvasImg, 0, 0);
+      }
+    }
+  };
+  this.redoStep = function(){
+    if(step<history.length-1){
+      step++;
+      var canvasImg = new Image();
+      canvasImg.src = history[step];
+      canvasImg.onload = function(){ 
+        ctx.clearRect(0, 0, this.width, this.height);
+        ctx.drawImage(canvasImg, 0, 0); 
+      }
+    }
+  };
 }

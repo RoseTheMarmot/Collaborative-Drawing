@@ -69,12 +69,22 @@ $(document).ready(function($){
   $("#clear_btn").click(function(){
     socket.emit("clear_canvas");
   });
+  // undo
+  $("#undo_btn").click(function(){
+    socket.emit("undoing_move");
+  });
+  // redo
+  $("#redo_btn").click(function(){
+    socket.emit("redoing_move");
+  });
 
   function reset(){ //resets the canvas
     socket.emit("color_change", {color: curColor});
     socket.emit("brush_change", {brush: curBrush});
     canvas.ctx.strokeStyle = curColor;
     canvas.ctx.lineWidth = curBrush;
+    canvas.history = [];
+    canvas.step = -1;
   }
 
   /*
@@ -96,5 +106,13 @@ $(document).ready(function($){
   socket.on("cleared", function(){
     canvas.ctx.clearRect(0, 0, canvas.canvas.width, canvas.canvas.height);
     canvas.save();
+  });
+  // undo move
+  socket.on("undo_move", function(){
+    canvas.undoStep();
+  });
+  // redo move
+  socket.on("redo_move", function(){
+    canvas.redoStep();
   });
 });
