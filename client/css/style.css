@@ -21,6 +21,10 @@ canvas {
 	vertical-align: top;
 	padding: 0px 10px;
 }
+.light-text{
+	font-weight: lighter;
+	color: #bbb;
+}
 #draw-box, #chat-box{
 	min-height: 500px;
 	width: 100%;

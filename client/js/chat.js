@@ -7,8 +7,7 @@ $(document).ready(function(){
   var userName = "";
   var randNum = Math.floor(Math.random()*899)+100;
   var addMsg = function(message){
-    $("#messages").append(message+"</br>");
-    $("#messages").scrollTop($("#messages")[0].scrollHeight);
+    $("#messages").append(message+"</br>").scrollTop($("#messages")[0].scrollHeight);
   };
 
   /*
