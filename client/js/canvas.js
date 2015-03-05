@@ -58,10 +58,12 @@ var Canvas = function(container_selector, init){
       history.length = step; 
     }
     history.push(document.getElementById("canvas_id").toDataURL());
-    console.log(history);
   };
   this.undoStep = function(){
-    if(step>0){
+    if(step === history.length-1){
+      this.pushHistory();
+    }
+    if(step>=0){
       step--;
       var canvasImg = new Image();
       canvasImg.src = history[step];
