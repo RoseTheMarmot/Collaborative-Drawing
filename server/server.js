@@ -6,10 +6,10 @@ var express = 	require('express');
 var app 	= 	express();
 
 //port
-var port = 8000;
-var server = app.listen(port, function(){
-	console.log("\n****************************\n*  listening on port "+port+"  *\n****************************\n");
-});
+// var port = 8000;
+// var server = app.listen(port, function(){
+// 	console.log("\n****************************\n*  listening on port "+port+"  *\n****************************\n");
+// });
 
 //client
 app.use(express.static(__dirname+"/../client"));
