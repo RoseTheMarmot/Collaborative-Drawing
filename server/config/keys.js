@@ -1,5 +1,5 @@
 /*
- * Passwords and other senitive stuff
+ * Passwords and other sensitive stuff
  */
 
 module.exports = {
