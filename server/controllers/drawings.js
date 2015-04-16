@@ -4,7 +4,6 @@
 
 var mongoose 	= require('mongoose');
 var Drawing 	= mongoose.model('drawing');
-var Drawing2	= require(__dirname+"/../models/Drawing.js");
 
 module.exports = {
 	index: function(request, response){ //gets the drawing data
@@ -19,7 +18,7 @@ module.exports = {
 					response.send(result[0]);
 				}else{
 					//if no privious data exists, the model returns some default values
-					response.send(Drawing2); 
+					response.send({initColor: "#FF4000", initSize:5}); 
 				}
 			}
 		});
