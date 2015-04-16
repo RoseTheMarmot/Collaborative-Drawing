@@ -4,7 +4,7 @@
 
 var mongoose 	= require('mongoose');
 var Drawing 	= mongoose.model('drawing');
-var Drawing2	= require(__dirname+"/../models/Drawing.js");
+var Drawing2	= require(__dirname+"/../models/drawing.js");
 
 module.exports = {
 	index: function(request, response){ //gets the drawing data

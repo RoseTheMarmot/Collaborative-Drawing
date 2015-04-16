@@ -9,7 +9,7 @@ module.exports = function(app){
 	app.use(bodyParser.urlencoded());
 
 	//controllers
-	var Drawings = require(__dirname+'/../controllers/Drawings.js');
+	var Drawings = require(__dirname+'/../controllers/drawings.js');
 
 	//routes
 	app.get('/drawings', function(request, response){
