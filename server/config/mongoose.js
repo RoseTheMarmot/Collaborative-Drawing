@@ -3,10 +3,11 @@
  */
 
 var mongoose = 	require('mongoose');
-var fs 		 = 	require('fs');
+var fs 		   = 	require('fs');
+var keys     =  require(__dirname+'/keys.js');
 
 //connect to mongodb server
-mongoose.connect('mongodb://localhost/CollaborativeDrawing');
+mongoose.connect(keys.remote_db);
 
 //require all .js files in the modles directory
 var models_path = __dirname + "/../models";

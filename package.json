@@ -10,5 +10,5 @@
     "socket.io": "^1.3.4"
   },
   "scripts": {
-    "start": "server/server.js"}
+    "start": "node server/server.js"}
 }
