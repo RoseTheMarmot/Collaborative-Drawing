@@ -1,18 +1,18 @@
 Nikki
 X implement reset on canvas
-X fix "undifined has left the chatroom"
-X force name for chatroom or impement login or have anonomus chatting (like google docs)
+X fix "undefined has left the chatroom"
+X force name for chatroom or implement login or have anonymous chatting (like google docs)
 X get old chats to show up for new users (chat log)
 X lightbox instead of prompt
-/ undo last stroke
+X undo last stroke
 
 Rose:
-X add erasor feature
+X add eraser feature
 X get the previously selected color to show up for new users
 X get the previously selected brush to show up for new users
 X get old drawings to show up for new users (drawing log)
 X get your selected color to not change when other people draw
 
 later:
-- implement automattic deletion of really old chats
+- implement automatic deletion of really old chats
 - add more "dynamic" color selection
