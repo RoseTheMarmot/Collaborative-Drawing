@@ -41,12 +41,12 @@ $(document).ready(function(){
    * Socket listeners
    */
   // showing chat log to new user
-  socket.on("user_accepted", function(data){
-    for(var i=0; i<data.chats.length; i++){
-      $("#messages").append(data.chats[i]+"</br>");
-    };
-    $("#messages").scrollTop($("#messages")[0].scrollHeight); 
-  });
+  // socket.on("user_accepted", function(data){
+  //   for(var i=0; i<data.chats.length; i++){
+  //     $("#messages").append(data.chats[i]+"</br>");
+  //   };
+  //   $("#messages").scrollTop($("#messages")[0].scrollHeight); 
+  // });
   socket.on("user_entered", function(data){
     addMsg(data.chat);
   });
