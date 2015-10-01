@@ -4,7 +4,7 @@
 
 var mongoose = 	require('mongoose');
 var fs 		   = 	require('fs');
-var keys     =  require(__dirname+'/sdjfhklj.js');
+var keys     =  require(__dirname+'/keys.js');
 
 //connect to mongodb server
 mongoose.connect(keys.remote_db);
